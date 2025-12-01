@@ -10,6 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from './ui/sidebar'
+import { handleLogoutAPI } from '../apis'
+import { Button } from './ui/button'
+import { useNavigate } from 'react-router-dom'
+import { API_ROOT } from '../utils/constants'
 
 // Menu items.
 const items = [
@@ -41,6 +45,11 @@ const items = [
 ]
 
 export function AppSidebar() {
+  const navigate = useNavigate()
+  const handleLogout = async() => {
+    await handleLogoutAPI()
+    navigate('/signin')
+  }
   return (
     <Sidebar>
       <SidebarContent>
@@ -58,6 +67,7 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              <Button variant='' handleClick={handleLogout} />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
