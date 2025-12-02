@@ -81,7 +81,7 @@ export default function RecommendedCarousel({ title = 'Section', items = [], vie
                     {loading ? (
                       <div className="min-h-[150px] lg:min-h-[200px] bg-neutral-800/40 rounded-lg animate-pulse" />
                     ) : (
-                      <ThumbnailCard title={s.title} subtitle={s.subtitle} img={s.img} topTag={s.top} smallTag={s.tag} />
+                      <ThumbnailCard title={s.title} subtitle={s.subtitle} img={s.thumbnail} topTag={s.top} smallTag={s.tag} />
                     )}
                   </div>
                 </div>
