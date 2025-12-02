@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { handleToastMessage } from './toasts'
+// import { handleToastMessage } from './toasts'
 import { handleLogoutAPI, handleRefreshTokenAPI } from '../apis'
 
 let authorizedAxiosInstance = axios.create()
@@ -31,6 +31,13 @@ authorizedAxiosInstance.interceptors.response.use((response) => {
   if (error.response.status == 401) handleLogoutAPI().then(() => {
     location.href = '/signin'
   })
+  if (error.response.status == 406) {
+    if (location.pathname !== '/verify') {
+      const { email } = JSON.parse(error.config.data)
+      localStorage.setItem('email', email)
+      location.href = '/verify'
+    }
+  }
   const originalRequests = error.config
   if (error.response.status === 410 && originalRequests) {
     if (!refreshTokenPromise) {
@@ -47,7 +54,6 @@ authorizedAxiosInstance.interceptors.response.use((response) => {
         handleLogoutAPI().then(() => {
           location.href = '/signin'
         })
-        return Promise.reject(error)
       })
         .finally(() => refreshTokenPromise = null)
     }
@@ -55,7 +61,9 @@ authorizedAxiosInstance.interceptors.response.use((response) => {
       return authorizedAxiosInstance(originalRequests) // goi lai cac api ban dau bi loi
     })
   }
-  handleToastMessage(error.response.data.message, 'error')
+  // handleToastMessage(error.response.data.message, 'error')
+  // return Promise.reject(error)
+  return error
 })
 
 export default authorizedAxiosInstance

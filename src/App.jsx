@@ -1,9 +1,8 @@
-import { AuthLogin } from './pages/Auth/login'
+import { AuthLogin, Register, Verify, Home, NotFound, AccessDenied } from './pages'
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import './index.css'
 import { ToastContainer } from 'react-toastify'
-import DashBoard from './pages/DashBoard/DashBoard'
-import { Register } from './pages/Auth/register'
+// consolidated page imports moved to ./pages
 
 const ProtectedRoute = () => {
   const user = JSON.parse(localStorage.getItem('userInfo'))
@@ -13,7 +12,7 @@ const ProtectedRoute = () => {
 
 const UnauthorizedRoute = () => {
   const user = JSON.parse(localStorage.getItem('userInfo'))
-  if (user) return <Navigate to='/dashboard' replace={true} />
+  if (user) return <Navigate to='/home' replace={true} />
   return <Outlet />
 }
 function App() {
@@ -33,28 +32,30 @@ function App() {
         }/>
         <Route element={<UnauthorizedRoute />}>
           <Route path='/signin' element={
-            <div className="min-h-screen flex flex-col bg-background dark:bg-gradient-to-br dark:from-background dark:via-secondary dark:to-background">
-              <div className="flex flex-1 items-center justify-center p-4">
-                <AuthLogin />
-              </div>
-            </div>
+            <AuthLogin />
           }/>
           <Route path='/signup' element={
-            <div className="min-h-screen flex flex-col bg-background dark:bg-gradient-to-br dark:from-background dark:via-secondary dark:to-background">
-              <div className="flex flex-1 items-center justify-center p-4">
-                <Register />
-              </div>
-            </div>
+            <Register />
           }/>
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route
-            path='/dashboard'
+            path='/home'
             element={
-              <DashBoard element={<div>hello</div>} />
+              <Home element={<div>hello</div>} />
             }
           />
         </Route>
+        <Route path='/verify' element={
+          <Verify />
+        }/>
+        <Route path='/access-denied' element={<AccessDenied />} />
+        <Route
+          path='*'
+          element={
+            <NotFound />
+          }
+        />
       </Routes>
     </>
   )

@@ -1,0 +1,6 @@
+export { Home } from './Home/Home'
+export { AuthLogin } from './Auth/login'
+export { Register } from './Auth/register'
+export { Verify } from './Auth/Verify'
+export { NotFound } from './404/NotFound'
+export { default as AccessDenied } from './AccessDenied/AccessDenied'

@@ -15,14 +15,14 @@ import {
   SheetContent,
   SheetDescription,
   SheetHeader,
-  SheetTitle
+  SheetTitle,
 } from './sheet'
 import { Skeleton } from './skeleton'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from './tooltip'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
@@ -31,6 +31,8 @@ const SIDEBAR_WIDTH = '16rem'
 const SIDEBAR_WIDTH_MOBILE = '18rem'
 const SIDEBAR_WIDTH_ICON = '3rem'
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b'
+
+
 
 const SidebarContext = React.createContext(null)
 
@@ -99,7 +101,7 @@ function SidebarProvider({
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? 'expanded' : 'collapsed'
 
-  const contextValue = (
+  const contextValue = React.useMemo(
     () => ({
       state,
       open,
@@ -107,7 +109,7 @@ function SidebarProvider({
       isMobile,
       openMobile,
       setOpenMobile,
-      toggleSidebar
+      toggleSidebar,
     }),
     [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
   )
@@ -121,7 +123,7 @@ function SidebarProvider({
             {
               '--sidebar-width': SIDEBAR_WIDTH,
               '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
-              ...style
+              ...style,
             }
           }
           className={cn(
@@ -172,7 +174,7 @@ function Sidebar({
           className='bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden'
           style={
             {
-              '--sidebar-width': SIDEBAR_WIDTH_MOBILE
+              '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
             }
           }
           side={side}
@@ -487,7 +489,7 @@ function SidebarMenuButton({
   ...props
 }) {
   const Comp = asChild ? Slot : 'button'
-  const { isMobile, state } = useSidebar()
+  // const { isMobile, state } = useSidebar()
 
   const button = (
     <Comp
@@ -516,7 +518,7 @@ function SidebarMenuButton({
       <TooltipContent
         side='right'
         align='center'
-        hidden={state !== 'collapsed' || isMobile}
+        hidden={'collapsed'}
         {...tooltip}
       />
     </Tooltip>
@@ -603,7 +605,7 @@ function SidebarMenuSkeleton({
         data-sidebar='menu-skeleton-text'
         style={
           {
-            '--skeleton-width': width
+            '--skeleton-width': width,
           }
         }
       />
@@ -692,6 +694,5 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  // eslint-disable-next-line react-refresh/only-export-components
-  useSidebar
+  useSidebar,
 }

@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     host: true,
     allowedHosts: [
-      'faced-announcements-mile-seem.trycloudflare.com'
+      'preferred-turtle-president-chess.trycloudflare.com'
     ]
   },
   base: './'

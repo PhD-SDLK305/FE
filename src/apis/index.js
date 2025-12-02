@@ -10,3 +10,7 @@ export const handleRefreshTokenAPI = async () => {
   return await authorizedAxiosInstance.get(`${API_ROOT}/v1/users/refresh_token`)
 }
 
+
+export const handleVerifyEmailAPI = async (payload) => {
+  return await authorizedAxiosInstance.put(`${API_ROOT}/v1/users/verify`, payload)
+}

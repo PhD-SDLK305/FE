@@ -5,48 +5,154 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
     --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
+}
+
+@layer components {
+  /* Hero background zoom (slow kenburns) */
+  @keyframes heroZoom {
+    0% { transform: scale(1) translateZ(0); }
+    100% { transform: scale(1.06) translateZ(0); }
+  }
+
+  /* softer version of heroic zoom for a more gentle feel */
+  @keyframes heroSoft {
+    0% { transform: scale(1) translateZ(0); filter: saturate(1); }
+    100% { transform: scale(1.04) translateZ(0); filter: saturate(1.05); }
+  }
+
+  .animate-hero-zoom {
+    animation: heroSoft 26s cubic-bezier(.22,.9,.28,1) infinite alternate;
+  }
+
+  /* short helper for slide backgrounds (faster but subtle fade/zoom) */
+  .animate-hero-soft { animation: heroSoft 15s ease-in-out both; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fadeUp 700ms cubic-bezier(.2,.8,.2,1) both; }
+
+  @keyframes pulseCta { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16,185,129,0.06);} 60% { transform: scale(1.02); box-shadow: 0 16px 48px rgba(16,185,129,0.08);} 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16,185,129,0);} }
+  .animate-pulse-cta { animation: pulseCta 3s ease-in-out infinite; }
+
+  @keyframes scrollCards {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-scroll-cards { animation: scrollCards 40s linear infinite; }
+
+  /* pause marquee when user hovers */
+  .animate-scroll-cards:hover { animation-play-state: paused; }
+
+  /* subtle card hover scale shadow */
+  .thumbnail-hover:hover { transform: translateY(-6px) scale(1.02); }
+
+  /* tiny helper to hide scrollbars in some browsers used in the project */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* gentle utility classes for soft look */
+  .glass-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(6px); }
+  .soft-shadow { box-shadow: 0 10px 40px rgba(2,6,23,0.45); }
+
+  /* 404 animations - soft floating and confetti */
+  @keyframes floatY {
+    0% { transform: translateY(0); opacity: 0.95; }
+    50% { transform: translateY(-10px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0.95; }
+  }
+
+  .animate-float { animation: floatY 5s ease-in-out infinite; }
+
+  @keyframes popIn {
+    0% { transform: translateY(10px) scale(.98); opacity: 0; }
+    60% { transform: translateY(-6px) scale(1.01); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .animate-pop { animation: popIn 600ms cubic-bezier(.2,.9,.26,1) both; }
+
+  @keyframes confettiSpin {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(220px) rotate(200deg); opacity: 0; }
+  }
+  .confetti { position: absolute; width: 14px; height: 24px; border-radius: 2px; transform-origin: center; }
+  .confetti.one { background: linear-gradient(180deg,#ffd166,#ffaf42); left: 20%; animation: confettiSpin 2.8s linear infinite; animation-delay: 0s; }
+  .confetti.two { background: linear-gradient(180deg,#6ee7b7,#34d399); left: 42%; animation: confettiSpin 3.2s linear infinite; animation-delay: .4s; }
+  .confetti.three { background: linear-gradient(180deg,#60a5fa,#3b82f6); left: 62%; animation: confettiSpin 2.6s linear infinite; animation-delay: .9s; }
+  .confetti.four { background: linear-gradient(180deg,#fca5a5,#fb7185); left: 80%; animation: confettiSpin 3.0s linear infinite; animation-delay: 1.4s; }
+
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float, .animate-pop, .confetti { animation: none !important; }
+  }
+
+  /* simple delay helpers for staggered entrance */
+  .delay-150 { animation-delay: 150ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-450 { animation-delay: 450ms; }
+  .delay-600 { animation-delay: 600ms; }
+
+  /* orbit / satellite / subtle motions used by SVGs */
+  .orbit { transform-origin: 300px 160px; animation: slowOrbit 18s linear infinite; }
+  .satellite { transform-origin: 0 0; animation: slowSpin 3.6s linear infinite; }
+  .planet-shine { animation: shimmer 4s ease-in-out infinite; }
+
+  @keyframes slowOrbit { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) } }
+  @keyframes slowSpin { 0% { transform: rotate(0deg) } 100% { transform: rotate(-360deg) } }
+  @keyframes shimmer { 0% { opacity: 0.4; transform: translateX(-2px) } 50% { opacity: 0.6; transform: translateX(2px) } 100% { opacity: 0.4; transform: translateX(-2px) } }
 }
 
 @layer base {

@@ -1,0 +1,6 @@
+export { default as Hero } from './Hero'
+export { default as HeroSlide } from './HeroSlide'
+export { default as RecommendedCarousel } from './RecommendedCarousel'
+export { default as ThumbnailCard } from './ThumbnailCard'
+export { default as heroData } from './heroData'
+export { default as rowsData } from './rowsData'
